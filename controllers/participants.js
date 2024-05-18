@@ -1,17 +1,29 @@
 const { HttpError, ctrlWrapper } = require("../helpers");
 const { Participant } = require("../models/participant");
+const { Event } = require("../models/event");
 
 const registerParticipantToEvent = async (req, res) => {
-  const { eventId, user } = req.body;
-  const existingRegistration = await Participant.findOne(
-    { eventId: eventId, "user.email": user.email },
+  const { id } = req.params;
+  const user = req.body;
+
+  const event = await Event.findById(id, "-createdAt, -updatedAt");
+  if (!event) {
+    throw HttpError(404, "Not Found");
+  }
+
+  const existingParticipant = await Participant.findOne(
+    { eventId: id, "user.email": user.email },
     "-createdAt, -updatedAt"
   );
-  if (existingRegistration) {
+  if (existingParticipant) {
     throw HttpError(409, "Conflict");
   }
 
-  const result = await Participant.create(req.body);
+  const participant = {
+    eventId: id,
+    user,
+  };
+  const result = await Participant.create(participant);
   res.status(201).json(result);
 };
 

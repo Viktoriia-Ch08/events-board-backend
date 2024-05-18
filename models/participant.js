@@ -30,26 +30,23 @@ participantSchema.post("save", handleMongooseError);
 
 const Participant = model("participants", participantSchema);
 
-const addSchema = Joi.object({
-  user: {
-    name: Joi.string()
-      .min(3)
-      .max(15)
-      .required()
-      .messages({ "any.required": "missing required name field" }),
-    email: Joi.string()
-      .required()
-      .messages({ "any.required": "missing required email field" }),
-    birthDate: Joi.string()
-      .required()
-      .messages({ "any.required": "missing required birthDate field" }),
-    answer: Joi.string(),
-  },
-  eventId: Joi.string(),
+const registerSchema = Joi.object({
+  name: Joi.string()
+    .min(3)
+    .max(15)
+    .required()
+    .messages({ "any.required": "missing required name field" }),
+  email: Joi.string()
+    .required()
+    .messages({ "any.required": "missing required email field" }),
+  birthDate: Joi.string()
+    .required()
+    .messages({ "any.required": "missing required birthDate field" }),
+  answer: Joi.string(),
 });
 
 const schemas = {
-  addSchema,
+  registerSchema,
 };
 
 module.exports = { Participant, schemas };

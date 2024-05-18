@@ -9,15 +9,15 @@ const { schemas } = require("../models/participant");
 
 router.get("/events", eventsCtrl.getEvents);
 router.get("/events/:id", eventsCtrl.getEventById);
+
 router.get(
   "/events/:id/participants",
   isValidId,
   participantsCtrl.getAllParticipantsByEventId
 );
-
 router.post(
-  "/participants",
-  validateBody(schemas.addSchema),
+  "/events/:id/participants",
+  validateBody(schemas.registerSchema),
   participantsCtrl.registerParticipantToEvent
 );
 
