@@ -1,6 +1,4 @@
-const { Schema, model } = require('mongoose');
-const { handleMongooseError } = require('../helpers');
-const Joi = require('joi');
+const { Schema, model } = require("mongoose");
 
 const eventSchema = new Schema(
   {
@@ -23,6 +21,6 @@ const eventSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-const Event = model('events', eventSchema);
+const Event = model("events", eventSchema);
 
 module.exports = { Event };

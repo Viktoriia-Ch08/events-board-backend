@@ -1,13 +1,13 @@
-const { Schema, model } = require('mongoose');
-const { handleMongooseError } = require('../helpers');
-const Joi = require('joi');
+const { Schema, model } = require("mongoose");
+const { handleMongooseError } = require("../helpers");
+const Joi = require("joi");
 
 const participantSchema = new Schema(
   {
     user: {
       name: {
         type: String,
-        required: [true, 'Set name for participant'],
+        required: [true, "Set name for participant"],
       },
       email: {
         type: String,
@@ -26,9 +26,9 @@ const participantSchema = new Schema(
   { timestamps: true, versionKey: false }
 );
 
-participantSchema.post('save', handleMongooseError);
+participantSchema.post("save", handleMongooseError);
 
-const Participant = model('participants', participantSchema);
+const Participant = model("participants", participantSchema);
 
 const addSchema = Joi.object({
   user: {
@@ -36,13 +36,13 @@ const addSchema = Joi.object({
       .min(3)
       .max(15)
       .required()
-      .messages({ 'any.required': 'missing required name field' }),
+      .messages({ "any.required": "missing required name field" }),
     email: Joi.string()
       .required()
-      .messages({ 'any.required': 'missing required email field' }),
+      .messages({ "any.required": "missing required email field" }),
     birthDate: Joi.string()
       .required()
-      .messages({ 'any.required': 'missing required birthDate field' }),
+      .messages({ "any.required": "missing required birthDate field" }),
     answer: Joi.string(),
   },
   eventId: Joi.string(),
