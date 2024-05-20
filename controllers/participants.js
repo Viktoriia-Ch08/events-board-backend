@@ -1,22 +1,22 @@
-const { HttpError, ctrlWrapper } = require("../helpers");
-const { Participant } = require("../models/participant");
-const { Event } = require("../models/event");
+const { HttpError, ctrlWrapper } = require('../helpers');
+const { Participant } = require('../models/participant');
+const { Event } = require('../models/event');
 
 const registerParticipantToEvent = async (req, res) => {
   const { id } = req.params;
   const user = req.body;
 
-  const event = await Event.findById(id, "-createdAt, -updatedAt");
+  const event = await Event.findById(id, '-createdAt, -updatedAt');
   if (!event) {
-    throw HttpError(404, "Not Found");
+    throw HttpError(404, 'Not Found');
   }
 
   const existingParticipant = await Participant.findOne(
-    { eventId: id, "user.email": user.email },
-    "-createdAt, -updatedAt"
+    { eventId: id, 'user.email': user.email },
+    '-createdAt, -updatedAt'
   );
   if (existingParticipant) {
-    throw HttpError(409, "Conflict");
+    throw HttpError(409, 'Conflict');
   }
 
   const participant = {
@@ -31,7 +31,16 @@ const getAllParticipantsByEventId = async (req, res) => {
   const { id } = req.params;
   const result = await Participant.find(
     { eventId: id },
-    "-createdAt, -updatedAt"
+    '-createdAt, -updatedAt'
+  );
+  res.json(result);
+};
+
+const getParticipantByEmail = async (req, res) => {
+  const user = req.body;
+  const result = await Participant.find(
+    { 'user.email': user.email },
+    '-createdAt, -updatedAt'
   );
   res.json(result);
 };
@@ -39,4 +48,5 @@ const getAllParticipantsByEventId = async (req, res) => {
 module.exports = {
   registerParticipantToEvent: ctrlWrapper(registerParticipantToEvent),
   getAllParticipantsByEventId: ctrlWrapper(getAllParticipantsByEventId),
+  getParticipantByEmail: ctrlWrapper(getParticipantByEmail),
 };
