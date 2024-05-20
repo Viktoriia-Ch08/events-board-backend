@@ -16,7 +16,7 @@ router.get(
   participantsCtrl.getAllParticipantsByEventId
 );
 
-router.get('/participant', participantsCtrl.getParticipantByEmail);
+router.get('/participant/:email', participantsCtrl.getParticipantByEmail);
 
 router.post(
   '/events/:id/participants',

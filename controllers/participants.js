@@ -37,9 +37,10 @@ const getAllParticipantsByEventId = async (req, res) => {
 };
 
 const getParticipantByEmail = async (req, res) => {
-  const user = req.body;
+  const { email } = req.params;
+  console.log(email);
   const result = await Participant.find(
-    { 'user.email': user.email },
+    { 'user.email': email },
     '-createdAt, -updatedAt'
   );
   res.json(result);
