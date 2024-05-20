@@ -18,6 +18,9 @@ const participantSchema = new Schema(
       answer: {
         type: String,
       },
+      eventTitle: {
+        type: String,
+      },
     },
     eventId: {
       type: String,
@@ -42,7 +45,8 @@ const registerSchema = Joi.object({
   birthDate: Joi.string()
     .required()
     .messages({ 'any.required': 'missing required birthDate field' }),
-  answer: Joi.string(),
+  answer: Joi.string().required(),
+  eventTitle: Joi.string().required(),
 });
 
 const schemas = {
