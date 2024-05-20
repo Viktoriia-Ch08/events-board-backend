@@ -21,11 +21,11 @@ const participantSchema = new Schema(
       eventTitle: {
         type: String,
       },
+      eventImg: { type: String },
     },
     eventId: {
       type: String,
     },
-    eventImg: { type: String },
   },
   { timestamps: true, versionKey: false }
 );
