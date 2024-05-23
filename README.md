@@ -32,6 +32,10 @@ npm run start:dev
 
 ```
 
+## **[Back-End](https://github.com/nightven/agua_vivo_app_backend)**
+
+## **[Swagger](https://agua-vivo-app-backend.onrender.com/api-docs/)**
+
 # Developer
 
 Viktoriia Cherkashyna
